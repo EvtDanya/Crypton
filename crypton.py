@@ -1,14 +1,10 @@
-import re
-import string
 import argparse
 from prettytable import PrettyTable
-import math
-import sys
 
 parser = argparse.ArgumentParser()
 
 def readFile(filename):
-    with open(filename, 'r') as file:
+    with open(filename, 'r', encoding='utf-8') as file:
         text = file.read()
     return text
 
@@ -20,6 +16,7 @@ def splitText(text, size):
     for word in splitText:
         if word == '':
             splitText.remove(word)
+    splitText = list(filter(None, splitText))
     for i in range(len(splitText)):
         while True:
             word = splitText[i]
@@ -67,6 +64,8 @@ if __name__ == '__main__':
     
     print('Length of input text: ' + str(len(match)))
     t = PrettyTable(['Word', 'Frequency (in %)'])
+    t.align["Word"] = "l"
+    t.align["Frequency (in %)"] = "r"
     for word in frequency:
         t.add_row([word, frequency[word]])
         
